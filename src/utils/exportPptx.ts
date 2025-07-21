@@ -32,10 +32,12 @@ export async function exportHtmlToPptx(
 
     const elements = Array.from(section.querySelectorAll("h1, h2, p, li"));
     let yPos = INITIAL_Y;
+    const seenTexts = new Set<string>();
 
     elements.forEach((el) => {
       const text = el.textContent?.trim();
-      if (!text) return;
+      if (!text || seenTexts.has(text)) return;
+      seenTexts.add(text);
 
       let color = "000000";
       let fontSize = 12;
@@ -90,7 +92,8 @@ export async function exportHtmlToPptx(
         margin: 0,
       });
 
-      yPos += height + 0.2;
+      const spacing = tag === "p" ? 0.1 : 0.2;
+      yPos += height + spacing;
     });
   });
 

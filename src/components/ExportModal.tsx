@@ -19,13 +19,13 @@ const ExportModal = ({ isOpen, onClose, onExport, isExporting }: ExportModalProp
       icon: FileText,
       color: 'text-orange-600'
     },
-    {
-      format: 'pdf' as const,
-      title: 'PDF',
-      description: 'Documento PDF para impressão',
-      icon: FileImage,
-      color: 'text-red-600'
-    },
+    // {
+    //   format: 'pdf' as const,
+    //   title: 'PDF',
+    //   description: 'Documento PDF para impressão',
+    //   icon: FileImage,
+    //   color: 'text-red-600'
+    // },
     {
       format: 'pptx' as const,
       title: 'PowerPoint',
