@@ -35,6 +35,8 @@ export async function exportHtmlToPptx(
     const seenTexts = new Set<string>();
 
     elements.forEach((el) => {
+      if (el.closest("li") && el.tagName.toLowerCase() === "p") return;
+
       const text = el.textContent?.trim();
       if (!text || seenTexts.has(text)) return;
       seenTexts.add(text);
@@ -92,7 +94,7 @@ export async function exportHtmlToPptx(
         margin: 0,
       });
 
-      const spacing = tag === "p" ? 0.1 : 0.2;
+      const spacing = tag === "p" || tag === "li" ? 0 : 0.1;
       yPos += height + spacing;
     });
   });
