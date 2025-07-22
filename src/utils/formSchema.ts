@@ -1,7 +1,5 @@
-
 import * as z from "zod";
 
-// Validação customizada para garantir que a soma seja 100% e todos os valores sejam > 0
 const distribuicaoValidator = z.object({
   ativar: z.number().min(1, "A fase Ativar deve ter pelo menos 1%").max(100),
   aplicar: z.number().min(1, "A fase Aplicar deve ter pelo menos 1%").max(100),
@@ -14,7 +12,6 @@ const distribuicaoValidator = z.object({
   path: ["distribuicao"]
 });
 
-// Validação para estratégias - deve ter ao menos uma estratégia por etapa
 const estrategiasValidator = z.object({
   conectar: z.array(z.string()),
   explorar: z.array(z.string()),
@@ -24,10 +21,9 @@ const estrategiasValidator = z.object({
   interagir: z.array(z.string()),
   avaliar: z.array(z.string())
 }).refine((data) => {
-  const etapas = Object.keys(data) as (keyof typeof data)[];
-  return etapas.every(etapa => data[etapa].length > 0);
+  return Object.values(data).some(arr => arr.length > 0);
 }, {
-  message: "É necessário selecionar ao menos uma estratégia para cada etapa",
+  message: "Distribuição do Tempo e Estratégias por Fase é obrigatório.",
   path: ["estrategias"]
 });
 
