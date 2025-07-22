@@ -65,19 +65,15 @@ export async function exportHtmlToPptx(
         }
       }
 
+      fontSize = Math.max(8, fontSize);
+
       let content = text;
       if (tag === "li") {
         content = "• " + content;
       }
 
-      const numLines = Math.max(content.split(/\n/).length, Math.ceil(content.length / 80));
-      const height = 0.6 + (numLines - 1) * 0.3;
-
-      if (yPos + height > SLIDE_HEIGHT_LIMIT) {
-        slide = pptx.addSlide();
-        applyBackground(slide);
-        yPos = INITIAL_Y;
-      }
+      const lines = Math.max(content.split(/\n/).length, Math.ceil(content.length / 80));
+      const height = Math.max(0.4, (fontSize / 10) * lines * 0.2);
 
       slide.addText(content, {
         x: 0.5,
@@ -90,12 +86,13 @@ export async function exportHtmlToPptx(
         fontFace: "Arial",
         valign: "top",
         align,
+        autoFit: true,
+        shrinkText: true,
         isTextBox: true,
         margin: 0,
       });
 
-      const spacing = tag === "p" || tag === "li" ? 0 : 0.1;
-      yPos += height + spacing;
+      yPos += height + 0.15; // Espaçamento visual um pouco maior e confortável
     });
   });
 
