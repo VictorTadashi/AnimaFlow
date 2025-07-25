@@ -8,8 +8,13 @@ const imageFilenames = [
   "ImagemFundo02.jpg",
   "Imagem4.jpg",
   "AnimaFuturoAcademico.jpg",
-  "EcossitemaAnima.jpg.png",
-  "FuturoAcademicoAnima.png"
+  "AnimaFuturoAcademico.png",
+  "EcossistemaAnima.jpg",
+  "FuturoAcademicoAnima.png",
+  "HomeCapa.jpg",
+  "HomeText02.jpg",
+  "ImagemFundoEncerramento.jpg",
+
 ];
 
 export const useExport = () => {

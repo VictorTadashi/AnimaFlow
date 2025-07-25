@@ -41,13 +41,61 @@ export async function exportHtmlToPptx(
       if (!text || seenTexts.has(text)) return;
       seenTexts.add(text);
 
+      const tag = el.tagName.toLowerCase();
+      const isFinalSlide = index === sections.length - 1;
+
       let color = "000000";
       let fontSize = 12;
       let bold = false;
       let align: pptxgen.HAlignType = "left";
+      let x = 0.5;
+      let y = yPos;
+      let w = 8.5;
+      let h: number | undefined;
 
-      const tag = el.tagName.toLowerCase();
+      if (isFinalSlide) {
+        if (tag === "h1") {
+          color = "FF008C";
+          fontSize = 24;
+          bold = true;
+          x = 0.5;
+          y = 0.7;
+          align = "left";
+        } else if (tag === "h2") {
+          color = "FFFFFF";
+          fontSize = 16;
+          x = 0.5;
+          y = 1.5;
+          align = "left";
+        } else if (tag === "p") {
+          color = "FFFFFF";
+          fontSize = 14;
+          bold = true;
+          x = 0.5;
+          y = 5.8;
+          align = "left";
+        }
+        h = 1;
 
+        slide.addText(text, {
+          x,
+          y,
+          w,
+          h,
+          fontSize,
+          color,
+          bold,
+          fontFace: "Arial",
+          valign: "top",
+          align,
+          isTextBox: true,
+          margin: 0,
+        });
+
+        return;
+      }
+
+      // Slides normais
       if (tag === "h1") {
         color = "FF008C";
         fontSize = index === 0 ? 28 : 18;
@@ -67,19 +115,15 @@ export async function exportHtmlToPptx(
 
       fontSize = Math.max(8, fontSize);
 
-      let content = text;
-      if (tag === "li") {
-        content = "• " + content;
-      }
-
+      let content = tag === "li" ? "• " + text : text;
       const lines = Math.max(content.split(/\n/).length, Math.ceil(content.length / 80));
-      const height = Math.max(0.4, (fontSize / 10) * lines * 0.2);
+      h = Math.max(0.4, (fontSize / 10) * lines * 0.2);
 
       slide.addText(content, {
-        x: 0.5,
-        y: yPos,
-        w: 8.5,
-        h: height,
+        x,
+        y,
+        w,
+        h,
         fontSize,
         color,
         bold,
@@ -92,7 +136,7 @@ export async function exportHtmlToPptx(
         margin: 0,
       });
 
-      yPos += height + 0.15; // Espaçamento visual um pouco maior e confortável
+      yPos += h + 0.15;
     });
   });
 

@@ -58,34 +58,67 @@ export const WizardForm = () => {
       quantidadeAlunos: "",
       distribuicaoTempo: defaultDistribuicaoTempo,
       estrategias: defaultEstrategias,
-      estrategiasFake: "", // campo extra para exibir o erro corretamente
+      estrategiasFake: "",
       interatividade: "",
     },
+    mode: "onSubmit",
   });
 
+  // Corrigir dependências do useEffect
   useEffect(() => {
     if (!form.formState.isSubmitted) return;
 
     const estrategias = form.getValues("estrategias");
-    const peloMenosUmaSelecionada = Object.values(estrategias).some(
-      (arr) => arr.length > 0
+
+    const fasesPorEtapa = {
+      ativar: ["conectar", "explorar"],
+      aplicar: ["expandir", "efetivar", "emplacar"],
+      avaliar: ["interagir", "avaliar"],
+    };
+
+    const todasFasesValidas = Object.entries(fasesPorEtapa).every(
+      ([, etapas]) => etapas.some((etapa) => estrategias[etapa]?.length > 0)
     );
 
-    if (!peloMenosUmaSelecionada) {
+    if (!todasFasesValidas) {
       form.setError("estrategiasFake", {
         type: "manual",
-        message: "Distribuição do Tempo e Estratégias por Fase é obrigatório.",
+        message:
+          "Selecione pelo menos uma estratégia em cada fase: Ativar, Aplicar e Avaliar.",
       });
     } else {
       form.clearErrors("estrategiasFake");
     }
-  }, [form.watch("estrategias"), form.formState.isSubmitted]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.formState.isSubmitted, form.getValues("estrategias")]);
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    const { distribuicaoTempo, estrategias } = values;
+    const estrategias = values.estrategias;
+    const distribuicaoTempo = values.distribuicaoTempo;
+
+    const fasesPorEtapa = {
+      ativar: ["conectar", "explorar"],
+      aplicar: ["expandir", "efetivar", "emplacar"],
+      avaliar: ["interagir", "avaliar"],
+    };
+
+    const todasFasesValidas = Object.entries(fasesPorEtapa).every(
+      ([, etapas]) => etapas.some((etapa) => estrategias[etapa]?.length > 0)
+    );
+
+    if (!todasFasesValidas) {
+      form.setError("estrategiasFake", {
+        type: "manual",
+        message:
+          "Selecione pelo menos uma estratégia em cada fase: Ativar, Aplicar e Avaliar.",
+      });
+      return;
+    } else {
+      form.clearErrors("estrategiasFake");
+    }
 
     const estrategiasTexto = Object.entries(estrategias)
-      .filter(([_, strategies]) => strategies.length > 0)
+      .filter(([, strategies]) => strategies.length > 0)
       .map(([etapa, strategies]) => `${etapa}: ${strategies.join(", ")}`)
       .join("\n");
 
@@ -93,7 +126,7 @@ export const WizardForm = () => {
       values.quantidadeAlunos
     } duração de ${
       values.duracao
-    } com interatividade ${values.interatividade.toLowerCase()} com o tema: ${
+    } com interatividade ${values.interatividade?.toLowerCase() || ""} com o tema: ${
       values.tema
     }. 
 
@@ -175,7 +208,7 @@ Use a taxonomia de neuroaprendizagem para estruturar o conteúdo de cada fase.`;
                   </FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value}
                   >
                     <FormControl>
                       <SelectTrigger className="h-10 text-sm border border-gray-300 focus:border-indigo-500">
@@ -210,7 +243,7 @@ Use a taxonomia de neuroaprendizagem para estruturar o conteúdo de cada fase.`;
                   </FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value}
                   >
                     <FormControl>
                       <SelectTrigger className="h-10 text-sm border border-gray-300 focus:border-indigo-500">
@@ -285,7 +318,7 @@ Use a taxonomia de neuroaprendizagem para estruturar o conteúdo de cada fase.`;
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
-                      defaultValue={field.value}
+                      value={field.value}
                       className="flex flex-row space-x-6"
                     >
                       <div className="flex items-center space-x-2">
