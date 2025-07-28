@@ -44,8 +44,8 @@ export const WizardForm = () => {
     conectar: [],
     explorar: [],
     expandir: [],
+    evocar: [],
     efetivar: [],
-    emplacar: [],
     interagir: [],
     avaliar: [],
   };
@@ -73,7 +73,7 @@ export const WizardForm = () => {
 
     const fasesPorEtapa = {
       ativar: ["conectar", "explorar"],
-      aplicar: ["expandir", "efetivar", "emplacar"],
+      aplicar: ["expandir", "evocar", "efetivar"],
       avaliar: ["interagir", "avaliar"],
     };
 
@@ -99,7 +99,7 @@ export const WizardForm = () => {
 
     const fasesPorEtapa = {
       ativar: ["conectar", "explorar"],
-      aplicar: ["expandir", "efetivar", "emplacar"],
+      aplicar: ["expandir", "evocar", "efetivar"],
       avaliar: ["interagir", "avaliar"],
     };
 

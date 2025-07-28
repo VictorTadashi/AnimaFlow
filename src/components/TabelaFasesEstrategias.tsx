@@ -9,8 +9,8 @@ interface EstrategiasPorEtapa {
   conectar: string[];
   explorar: string[];
   expandir: string[];
+  evocar: string[];
   efetivar: string[];
-  emplacar: string[];
   interagir: string[];
   avaliar: string[];
 }
@@ -35,22 +35,18 @@ interface TabelaFasesEstrategiasProps {
 }
 
 const estrategiasDefinicoes = {
-  conectar: [
-    "Apresentação do Desafio",
-    "Discussão Inicial",
-    "Perguntas Provocantes",
-  ],
+  conectar: ["Apresentação do Desafio", "Discussão Inicial", "Perguntas Provocantes"],
   explorar: ["Atividades de Pesquisa Rápida", "Compartilhamento de Insights"],
   expandir: ["Aula Expositiva", "Análise de Casos"],
-  efetivar: ["Reflexão Individual", "Compartilhamento em Grupos"],
-  emplacar: ["Desafio Prático", "Plano de Ação"],
+  evocar: ["Reflexão Individual", "Compartilhamento em Grupos"],
+  efetivar: ["Desafio Prático", "Plano de Ação"],
   interagir: ["Discussão em Grupos", "Feedback entre Pares"],
   avaliar: ["Auto Avaliação", "Avaliação Formativa"],
 };
 
 const fasesPorEtapa = {
   ativar: ["conectar", "explorar"],
-  aplicar: ["expandir", "efetivar", "emplacar"],
+  aplicar: ["expandir", "evocar", "efetivar"],
   avaliar: ["interagir", "avaliar"],
 };
 

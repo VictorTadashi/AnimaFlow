@@ -9,7 +9,7 @@ interface EstrategiasPorEtapa {
   explorar: string[];
   expandir: string[];
   evocar: string[];
-  emplacar: string[];
+  efetivar: string[];
   interagir: string[];
   avaliar: string[];
 }
@@ -25,14 +25,14 @@ const estrategiasDefinicoes = {
   explorar: ["Atividades de Pesquisa Rápida", "Compartilhamento de Insights"],
   expandir: ["Aula Expositiva", "Análise de Casos"],
   evocar: ["Reflexão Individual", "Compartilhamento em Grupos"],
-  emplacar: ["Desafio Prático", "Plano de Ação"],
+  efetivar: ["Desafio Prático", "Plano de Ação"],
   interagir: ["Discussão em Grupos", "Feedback entre Pares"],
   avaliar: ["Auto Avaliação", "Avaliação Formativa"]
 };
 
 const fasesPorEtapa = {
   ativar: ["conectar", "explorar"],
-  aplicar: ["expandir", "evocar", "emplacar"],
+  aplicar: ["expandir", "evocar", "efetivar"],
   avaliar: ["interagir", "avaliar"]
 };
 

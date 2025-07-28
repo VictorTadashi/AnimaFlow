@@ -16,8 +16,8 @@ const estrategiasValidator = z.object({
   conectar: z.array(z.string()),
   explorar: z.array(z.string()),
   expandir: z.array(z.string()),
+  evocar: z.array(z.string()),
   efetivar: z.array(z.string()),
-  emplacar: z.array(z.string()),
   interagir: z.array(z.string()),
   avaliar: z.array(z.string())
 }).refine((data) => {
