@@ -12,20 +12,20 @@ interface ExportModalProps {
 
 const ExportModal = ({ isOpen, onClose, onExport, isExporting }: ExportModalProps) => {
   const exportOptions = [
-    {
-      format: 'html' as const,
-      title: 'HTML5',
-      description: 'Arquivo HTML completo e independente',
-      icon: FileText,
-      color: 'text-orange-600'
-    },
     // {
-    //   format: 'pdf' as const,
-    //   title: 'PDF',
-    //   description: 'Documento PDF para impressão',
-    //   icon: FileImage,
-    //   color: 'text-red-600'
+    //   format: 'html' as const,
+    //   title: 'HTML5',
+    //   description: 'Arquivo HTML completo e independente',
+    //   icon: FileText,
+    //   color: 'text-orange-600'
     // },
+    {
+      format: 'pdf' as const,
+      title: 'PDF',
+      description: 'Documento PDF para impressão',
+      icon: FileImage,
+      color: 'text-red-600'
+    },
     {
       format: 'pptx' as const,
       title: 'PowerPoint',
