@@ -53,6 +53,7 @@ export const WizardForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      nomeDocente: "", // Adicione este campo se não existir no schema
       tema: "",
       duracao: "",
       quantidadeAlunos: "",
@@ -130,6 +131,8 @@ export const WizardForm = () => {
       values.tema
     }. 
 
+Altere o nome do docente para: ${values.nomeDocente}.
+
 Distribua o tempo da seguinte forma:
 - Fase Ativar (despertar interesse e conhecimento prévio): ${
       distribuicaoTempo.ativar
@@ -177,6 +180,28 @@ Use a taxonomia de neuroaprendizagem para estruturar o conteúdo de cada fase.`;
             onSubmit={form.handleSubmit(handleSubmit)}
             className="space-y-5"
           >
+            {/* Campo Nome do Docente */}
+            <FormField
+              control={form.control}
+              name="nomeDocente"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-sm font-medium text-gray-700">
+                    Nome do Docente
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Digite o nome do docente"
+                      {...field}
+                      className="h-10 text-sm border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {/* Fim do campo Nome do Docente */}
+
             <FormField
               control={form.control}
               name="tema"

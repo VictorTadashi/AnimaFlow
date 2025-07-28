@@ -1,4 +1,3 @@
-
 export const exportToHTML = (html: string, filename: string = 'roteiro-aula') => {
   const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
   const url = URL.createObjectURL(blob);

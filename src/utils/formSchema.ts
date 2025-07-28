@@ -34,6 +34,7 @@ export const formSchema = z.object({
   distribuicaoTempo: distribuicaoValidator,
   estrategias: estrategiasValidator,
   interatividade: z.string().min(1, "O nível de interatividade é obrigatório"),
+  nomeDocente: z.string().min(1, "Informe o nome do docente"),
 });
 
 export const duracaoOptions = [
