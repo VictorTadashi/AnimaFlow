@@ -20,7 +20,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22.5.5'
+          node-version: '22.x.x'
       - uses: actions/checkout@v3
         with:
           submodules: true
